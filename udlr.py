@@ -2,14 +2,8 @@ import streamlit as st
 import os
 import random
 import time
-# # Set the app title 
-# st.title('My First Streamlit App') 
-# # Add a welcome message 
-# st.write('Welcome to my Streamlit app!') 
-# # Create a text input 
-# widgetuser_input = st.text_input('Enter a custom message:', 'Hello, Streamlit!') 
-# # Display the customized message 
-# st.write('Customized Message:', widgetuser_input)
+from plyer import tts
+
 
 l_combinations = ["UULL", "UULR", "UURL", "UURR", 
                   "UDLL", "UDLR", "UDRL", "UDRR", 
@@ -21,24 +15,34 @@ l_hand = ["L", "R"]
 mapper_directions = {"U":"Up", "D":"Down", "L":"Left", "R":"Right"}
 
 n_round = int(st.text_input("Number of Round", "4"))
-speed = int(st.text_input("Speed", "1"))
+speed = int(st.text_input("Speed", "3"))
 max_number = int(st.text_input("Max Number", "10"))
 
 if st.button("Start"):
     l_num = []
-    time.sleep(1)
+    time.sleep(1.5)
     for i in range(0, n_round):
         path = random.choice(l_combinations)
         hand = random.choice(l_hand)
-        num = random.randint(0, max_number)
+        num = random.randint(1, max_number)
         l_num.append(num)
         for d in path:
-            os.system("say '{}'".format(mapper_directions[d]))
+            # os.system("say '{}'".format(mapper_directions[d]))
+            msg = "{}".format(mapper_directions[d])
+            tts.speak(message=msg)
+
             time.sleep(0.5 / speed)
-        os.system("say '{}'".format(mapper_directions[hand]))
+        # os.system("say '{}'".format(mapper_directions[hand]))
+        msg = "{}".format(mapper_directions[hand])
+        tts.speak(message=msg)
         time.sleep(0.5 / speed)
-        os.system("say '{}'".format(num))
+        # os.system("say '{}'".format(num))
+        msg = "{}".format(num)
+        tts.speak(message=msg)
         time.sleep(0.5 / speed)
         st.text("{}  {}  {}".format(path, hand, num))
-    os.system("say '{}'".format("Sum number"))
+    # os.system("say '{}'".format("Sum number"))
+    msg = "{}".format("Sum number")
+    tts.speak(message=msg)
     st.text("Sum = {}".format(sum(l_num)))
+
