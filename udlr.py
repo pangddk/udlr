@@ -2,7 +2,8 @@ import streamlit as st
 import os
 import random
 import time
-from plyer import tts
+# from plyer import tts
+from streamlit_TTS import auto_play, text_to_speech, text_to_audio
 
 
 l_combinations = ["UULL", "UULR", "UURL", "UURR", 
@@ -27,22 +28,22 @@ if st.button("Start"):
         num = random.randint(1, max_number)
         l_num.append(num)
         for d in path:
-            # os.system("say '{}'".format(mapper_directions[d]))
             msg = "{}".format(mapper_directions[d])
-            tts.speak(message=msg)
+            # tts.speak(message=msg)
+            text_to_speech(text=msg, language="en")
 
             time.sleep(0.5 / speed)
-        # os.system("say '{}'".format(mapper_directions[hand]))
         msg = "{}".format(mapper_directions[hand])
-        tts.speak(message=msg)
+        # tts.speak(message=msg)
+        text_to_speech(text=msg, language="en")
         time.sleep(0.5 / speed)
-        # os.system("say '{}'".format(num))
         msg = "{}".format(num)
-        tts.speak(message=msg)
+        # tts.speak(message=msg)
+        text_to_speech(text=msg, language="en")
         time.sleep(0.5 / speed)
         st.text("{}  {}  {}".format(path, hand, num))
-    # os.system("say '{}'".format("Sum number"))
     msg = "{}".format("Sum number")
-    tts.speak(message=msg)
+    # tts.speak(message=msg)
+    text_to_speech(text=msg, language="en")
     st.text("Sum = {}".format(sum(l_num)))
 
